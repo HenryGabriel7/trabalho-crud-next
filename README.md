@@ -1,22 +1,17 @@
-# 🌿 Branch 1 — Estrutura Inicial
+# 🌿 Branch 2 — Listagem, Detalhes, Tabelas e Filtros
 
-## O que já está pronto neste branch
-- ✅ Configuração do projeto (Vite + React + TypeScript)
-- ✅ Sistema de design completo (`index.css` com variáveis CSS)
-- ✅ Tipos TypeScript (`src/types/index.ts`)
-- ✅ Dados mock (`src/lib/mockData.ts` + `src/lib/mockStore.ts`)
-- ✅ Configuração de API (`src/lib/api.ts`)
-- ✅ Validações Zod (`src/lib/validations.ts`)
-- ✅ Autenticação (`src/contexts/AuthContext.tsx`)
-- ✅ Layout: Sidebar, Header, Layout
-- ✅ Componentes UI: Button, Input, Badge, Card, Spinner, EmptyState, Modal
-- ✅ Páginas de Auth: Login e Registro
+## Pré-requisito
+Branch 1 já mergeado na `main`.
 
-## O que está como 🚧 (placeholder)
+## O que este branch adiciona
+- ✅ Hooks de dados: `useUsuarios` e `useMemoria` (TanStack Query)
+- ✅ Componente `TabelaUsuarios` (tabela com avatar, badge semestre, ações)
+- ✅ Página `/usuarios` — listagem com busca por nome/e-mail, filtro por curso e semestre
+- ✅ Página `/usuarios/:id` — detalhe completo do usuário
+- ✅ Página `/memoria` — módulo didático em memória com aviso explicativo
+
+## O que ainda está como 🚧
 - Dashboard → Branch 4
-- Listagem de usuários → Branch 2
-- Detalhe do usuário → Branch 2
-- Módulo Memória → Branch 2
 - Criar / Editar usuário → Branch 3
 
 ---
@@ -26,45 +21,51 @@
 ```bash
 npm install
 npm run dev
-# Abre em http://localhost:3000
 ```
-
-**Login demo:** `admin@edu.com` / `12345678`
-(ou clica em "Preencher automaticamente" na tela de login)
 
 ---
 
-## 🔀 Fluxo Git para o time
+## 🔀 Fluxo Git
 
 ```bash
-# 1. Suba este branch como base do projeto
-git init
-git add .
-git commit -m "feat: branch 1 - estrutura inicial, layout e autenticação"
-git branch -M main
-git remote add origin https://github.com/SEU_USUARIO/REPO.git
-git push -u origin main
+# 1. Clone o repositório e crie seu branch a partir da main
+git clone https://github.com/SEU_USUARIO/REPO.git
+cd REPO
+git checkout main
+git pull
+git checkout -b feature/branch-2
 
-# 2. Avise os outros para clonar o repositório
-#    Cada um vai criar seu branch a partir deste
+# 2. Copie os arquivos novos deste zip para o projeto:
+#    src/hooks/useUsuarios.ts
+#    src/hooks/useMemoria.ts
+#    src/components/usuarios/TabelaUsuarios.tsx
+#    src/pages/usuarios/ListarUsuarios.tsx
+#    src/pages/usuarios/DetalheUsuario.tsx
+#    src/pages/usuarios/ListarMemoria.tsx
+#    src/App.tsx  ← substitua o existente
+
+# 3. Commit e PR
+git add .
+git commit -m "feat: branch 2 - listagem, detalhes e módulo memória"
+git push origin feature/branch-2
+# Abra Pull Request para main no GitHub
 ```
 
 ---
 
-## 📁 Arquivos deste branch
+## 📁 Arquivos novos neste branch
 
 ```
 src/
-├── types/index.ts
-├── lib/
-│   ├── api.ts
-│   ├── mockData.ts
-│   ├── mockStore.ts
-│   └── validations.ts
-├── contexts/AuthContext.tsx
+├── hooks/
+│   ├── useUsuarios.ts     ← novo
+│   └── useMemoria.ts      ← novo
 ├── components/
-│   ├── layout/  (Sidebar, Header, Layout)
-│   └── ui/      (Button, Input, Badge, Card, Spinner...)
+│   └── usuarios/
+│       └── TabelaUsuarios.tsx  ← novo
 └── pages/
-    └── auth/    (Login, Registro)
+    └── usuarios/
+        ├── ListarUsuarios.tsx  ← novo
+        ├── DetalheUsuario.tsx  ← novo
+        └── ListarMemoria.tsx   ← novo
 ```
