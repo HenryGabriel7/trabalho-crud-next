@@ -5,41 +5,29 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { Layout } from './components/layout/Layout';
 import { LoadingPage } from './components/ui/index';
 
-// Páginas de autenticação (Branch 1 ✅)
-import { Login } from './pages/auth/Login';
+// ✅ Branch 1 — Auth
+import { Login }    from './pages/auth/Login';
 import { Registro } from './pages/auth/Registro';
 
+// ✅ Branch 2 — Listagem
+import { ListarUsuarios } from './pages/usuarios/ListarUsuarios';
+import { DetalheUsuario } from './pages/usuarios/DetalheUsuario';
+import { ListarMemoria }  from './pages/usuarios/ListarMemoria';
+
+// ✅ Branch 3 — Formulários
+import { CriarUsuario }  from './pages/usuarios/CriarUsuario';
+import { EditarUsuario } from './pages/usuarios/EditarUsuario';
+
 // ===========================================================
-// STUB — Página temporária para rotas ainda não implementadas.
-// Será substituída nos branches seguintes.
+// STUB — Apenas Dashboard (Branch 4)
 // ===========================================================
 function EmBreve({ titulo }: { titulo: string }) {
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '4rem 2rem',
-        textAlign: 'center',
-        gap: '1rem',
-      }}
-    >
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '4rem 2rem', textAlign: 'center', gap: '1rem' }}>
       <div style={{ fontSize: '3rem' }}>🚧</div>
-      <h2
-        style={{
-          fontWeight: 700,
-          fontSize: 'var(--font-size-2xl)',
-          color: 'var(--text-primary)',
-          letterSpacing: '-0.03em',
-        }}
-      >
-        {titulo}
-      </h2>
+      <h2 style={{ fontWeight: 700, fontSize: 'var(--font-size-2xl)', color: 'var(--text-primary)', letterSpacing: '-0.03em' }}>{titulo}</h2>
       <p style={{ color: 'var(--text-secondary)', fontSize: 'var(--font-size-sm)', maxWidth: 360 }}>
-        Esta página será implementada no próximo branch.
-        Estrutura, layout, rotas e autenticação já estão prontos! ✅
+        Último passo! Formulários e CRUD completo já estão prontos. Falta apenas o Dashboard! ✅
       </p>
     </div>
   );
@@ -66,18 +54,18 @@ function PublicRoute({ children }: { children: React.ReactNode }) {
 function AppRoutes() {
   return (
     <Routes>
-      {/* ✅ Branch 1 — Auth */}
+      {/* ✅ Branch 1 */}
       <Route path="/login"    element={<PublicRoute><Login /></PublicRoute>} />
       <Route path="/registro" element={<PublicRoute><Registro /></PublicRoute>} />
 
-      {/* 🚧 Branch 2 — Listagem */}
-      <Route path="/usuarios"     element={<ProtectedRoute><EmBreve titulo="Listagem de Usuários" /></ProtectedRoute>} />
-      <Route path="/usuarios/:id" element={<ProtectedRoute><EmBreve titulo="Detalhe do Usuário" /></ProtectedRoute>} />
-      <Route path="/memoria"      element={<ProtectedRoute><EmBreve titulo="Módulo Memória" /></ProtectedRoute>} />
+      {/* ✅ Branch 2 */}
+      <Route path="/usuarios"     element={<ProtectedRoute><ListarUsuarios /></ProtectedRoute>} />
+      <Route path="/usuarios/:id" element={<ProtectedRoute><DetalheUsuario /></ProtectedRoute>} />
+      <Route path="/memoria"      element={<ProtectedRoute><ListarMemoria /></ProtectedRoute>} />
 
-      {/* 🚧 Branch 3 — Formulários */}
-      <Route path="/usuarios/novo"          element={<ProtectedRoute><EmBreve titulo="Criar Usuário" /></ProtectedRoute>} />
-      <Route path="/usuarios/:id/editar"    element={<ProtectedRoute><EmBreve titulo="Editar Usuário" /></ProtectedRoute>} />
+      {/* ✅ Branch 3 */}
+      <Route path="/usuarios/novo"       element={<ProtectedRoute><CriarUsuario /></ProtectedRoute>} />
+      <Route path="/usuarios/:id/editar" element={<ProtectedRoute><EditarUsuario /></ProtectedRoute>} />
 
       {/* 🚧 Branch 4 — Dashboard */}
       <Route path="/" element={<ProtectedRoute><EmBreve titulo="Dashboard" /></ProtectedRoute>} />

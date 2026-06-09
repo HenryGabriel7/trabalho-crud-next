@@ -3,7 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { GraduationCap, Eye, EyeOff, CheckCircle } from 'lucide-react';
-import { api, getErrorMessage } from '../../lib/api';
+import { authStore, delay } from '../../lib/mockStore';
+import { getErrorMessage } from '../../lib/api';
 import { createUserSchema } from '../../lib/validations';
 import type { CreateUserFormData } from '../../lib/validations';
 
@@ -33,13 +34,16 @@ export function Registro() {
     resolver: zodResolver(createUserSchema),
   });
 
-  // Chama POST /users no backend NestJS (rota pública)
+  // Usa authStore.register (mock do POST /users público)
   async function onSubmit(data: CreateUserFormData) {
     setIsLoading(true);
     setServerError('');
 
     try {
-      await api.post('/users', {
+      await delay(500); // simula latência
+
+      // authStore.register salva a conta e cria o usuário na lista
+      authStore.register({
         name: data.name,
         email: data.email,
         password: data.password,

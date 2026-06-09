@@ -6,7 +6,8 @@ import {
   useCallback,
   ReactNode,
 } from 'react';
-import { api, TOKEN_KEY, getErrorMessage } from '../lib/api';
+import { TOKEN_KEY, getErrorMessage } from '../lib/api';
+import { authStore, delay } from '../lib/mockStore';
 import type { JwtPayload, LoginCredentials } from '../types';
 
 // ===================================================
@@ -26,11 +27,13 @@ interface AuthContextData {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 // ===================================================
-// Decodifica o payload do JWT (base64url)
+// Decodifica o payload do token fake (base64url)
+// A estrutura é idêntica a um JWT real: header.payload.sig
 // ===================================================
 function decodeToken(token: string): JwtPayload | null {
   try {
     const part = token.split('.')[1];
+    // Reconverte base64url → base64 padrão
     const base64 = part.replace(/-/g, '+').replace(/_/g, '/');
     return JSON.parse(atob(base64)) as JwtPayload;
   } catch {
@@ -62,14 +65,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setIsLoading(false);
   }, []);
 
-  // Login: chama POST /auth/login no backend NestJS
+  // Login: chama authStore.login (mock do POST /auth/login)
   const login = useCallback(async (credentials: LoginCredentials) => {
-    const response = await api.post<{ access_token: string }>('/auth/login', {
-      email: credentials.email,
-      password: credentials.password,
-    });
+    await delay(500); // simula latência de rede
 
-    const { access_token } = response.data;
+    // authStore.login lança erro se as credenciais forem inválidas
+    const { access_token } = authStore.login(credentials.email, credentials.password);
+
     localStorage.setItem(TOKEN_KEY, access_token);
     setUser(decodeToken(access_token));
   }, []);

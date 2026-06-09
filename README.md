@@ -1,23 +1,17 @@
-# 🌿 Branch 1 — Estrutura Inicial
+# 🌿 Branch 3 — Formulários de Cadastro, Edição e Validações
 
-## O que já está pronto neste branch
-- ✅ Configuração do projeto (Vite + React + TypeScript)
-- ✅ Sistema de design completo (`index.css` com variáveis CSS)
-- ✅ Tipos TypeScript (`src/types/index.ts`)
-- ✅ Dados mock (`src/lib/mockData.ts` + `src/lib/mockStore.ts`)
-- ✅ Configuração de API (`src/lib/api.ts`)
-- ✅ Validações Zod (`src/lib/validations.ts`)
-- ✅ Autenticação (`src/contexts/AuthContext.tsx`)
-- ✅ Layout: Sidebar, Header, Layout
-- ✅ Componentes UI: Button, Input, Badge, Card, Spinner, EmptyState, Modal
-- ✅ Páginas de Auth: Login e Registro
+## Pré-requisito
+Branches 1 e 2 já mergeados na `main`.
 
-## O que está como 🚧 (placeholder)
-- Dashboard → Branch 4
-- Listagem de usuários → Branch 2
-- Detalhe do usuário → Branch 2
-- Módulo Memória → Branch 2
-- Criar / Editar usuário → Branch 3
+## O que este branch adiciona
+- ✅ Componente `FormUsuario` — formulário reutilizável (modo criar / modo editar)
+- ✅ Página `/usuarios/novo` — cadastro com validação Zod + React Hook Form
+- ✅ Página `/usuarios/:id/editar` — edição com campos pré-preenchidos
+- ✅ Validação completa: nome (mín. 2 chars), e-mail, senha (mín. 8), telefone (mín. 11), curso e semestre
+- ✅ Senha opcional na edição (campo vazio = mantém a senha atual)
+
+## O que ainda está como 🚧
+- Dashboard → Branch 4 (último!)
 
 ---
 
@@ -26,45 +20,42 @@
 ```bash
 npm install
 npm run dev
-# Abre em http://localhost:3000
 ```
-
-**Login demo:** `admin@edu.com` / `12345678`
-(ou clica em "Preencher automaticamente" na tela de login)
 
 ---
 
-## 🔀 Fluxo Git para o time
+## 🔀 Fluxo Git
 
 ```bash
-# 1. Suba este branch como base do projeto
-git init
-git add .
-git commit -m "feat: branch 1 - estrutura inicial, layout e autenticação"
-git branch -M main
-git remote add origin https://github.com/SEU_USUARIO/REPO.git
-git push -u origin main
+# 1. Atualize da main (que já tem branch-2 mergeado)
+git checkout main
+git pull
+git checkout -b feature/branch-3
 
-# 2. Avise os outros para clonar o repositório
-#    Cada um vai criar seu branch a partir deste
+# 2. Copie os arquivos novos deste zip:
+#    src/components/usuarios/FormUsuario.tsx
+#    src/pages/usuarios/CriarUsuario.tsx
+#    src/pages/usuarios/EditarUsuario.tsx
+#    src/App.tsx  ← substitua o existente
+
+# 3. Commit e PR
+git add .
+git commit -m "feat: branch 3 - formulários de cadastro, edição e validações"
+git push origin feature/branch-3
+# Abra Pull Request para main no GitHub
 ```
 
 ---
 
-## 📁 Arquivos deste branch
+## 📁 Arquivos novos neste branch
 
 ```
 src/
-├── types/index.ts
-├── lib/
-│   ├── api.ts
-│   ├── mockData.ts
-│   ├── mockStore.ts
-│   └── validations.ts
-├── contexts/AuthContext.tsx
 ├── components/
-│   ├── layout/  (Sidebar, Header, Layout)
-│   └── ui/      (Button, Input, Badge, Card, Spinner...)
+│   └── usuarios/
+│       └── FormUsuario.tsx    ← novo
 └── pages/
-    └── auth/    (Login, Registro)
+    └── usuarios/
+        ├── CriarUsuario.tsx   ← novo
+        └── EditarUsuario.tsx  ← novo
 ```
